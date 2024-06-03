@@ -12,19 +12,19 @@ day la trang chu admin
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="{{ route('auth.index') }}">Đến trang login</a>
+                        <a class="nav-link d-block" href="{{ route('auth.index') }}">quan li tai khoan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="{{ route('categories.index') }}">Đến trang categories</a>
+                        <a class="nav-link d-block" href="{{ route('categories.index') }}">quan li categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="{{ route('products.index') }}">Đến trang product</a>
+                        <a class="nav-link d-block" href="{{ route('products.index') }}">quan li product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="{{ route('blogs.index') }}">Đến trang blog</a>
+                        <a class="nav-link d-block" href="{{ route('blogs.index') }}">quan li blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="{{ route('wishlists.index') }}">Đến trang wishlist</a>
+                        <a class="nav-link d-block" href="{{ route('wishlists.index') }}">quan li wishlist</a>
                     </li>
                 </ul>
             </div>
