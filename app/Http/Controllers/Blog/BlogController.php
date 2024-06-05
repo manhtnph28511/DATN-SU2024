@@ -59,9 +59,19 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogRequest $request, string $id)
     {
-        //
+        try {
+            $blog = Blog::query()->find($id);
+            if(empty($blog)) {
+                return ApiResponse(false,Response::HTTP_BAD_REQUEST,'Không tìm thấy thông tin',null);
+            }
+            $blog->update($request->all());
+            return ApiResponse(true,Response::HTTP_OK,'Cập nhât thông tin thành công',new BlogResource($blog));
+        }catch (\Exception $e){
+            return ApiResponse(false,Response::HTTP_BAD_REQUEST,$e->getMessage(),null);
+        }
+
     }
 
     /**
