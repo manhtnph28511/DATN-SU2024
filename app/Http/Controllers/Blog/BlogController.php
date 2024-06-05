@@ -39,7 +39,12 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-
+        try {
+            $blog = Blog::query()->create($request->all());
+            return ApiResponse(true,Response::HTTP_CREATED,'Thêm mới blog thành công',new BlogResource($blog));
+        }catch (\Exception $e) {
+            return ApiResponse(false,Response::HTTP_BAD_REQUEST,$e->getMessage(),null);
+        }
     }
 
     /**
@@ -50,13 +55,6 @@ class BlogController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
