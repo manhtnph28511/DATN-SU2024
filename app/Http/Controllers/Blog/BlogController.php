@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\BlogRequest;
 use Illuminate\Http\Request;
+use App\Models\Blog;
+use Illuminate\Http\Response;
 
+use App\Http\Resources\Blog\BlogResource;
 class BlogController extends Controller
 {
     /**
@@ -12,23 +16,30 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
-    }
+        try {
+            $data = Blog::query()->paginate(10);
+            $result = [
+                'data' => BlogResource::collection($data),
+                'meta' => [
+                    'current_page' => $data->currentPage(),
+                    'last_page' => $data->lastPage(),
+                    'per_page' => $data->perPage(),
+                    'total' => $data->total(),
+                ]
+            ];
+            return ApiResponse(true, Response::HTTP_OK,'Hiển thị thông tin thành công',$result);
+        }catch (\Exception $e) {
+            return ApiResponse(false,Response::HTTP_BAD_REQUEST,$e->getMessage(),null);
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        //
+
     }
 
     /**
