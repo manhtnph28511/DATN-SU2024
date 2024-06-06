@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('shippings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id'); // Khóa ngoại tham chiếu đến id của bảng orders
+            $table->foreignIdFor(Order::class)->constrained();
+            // Khóa ngoại tham chiếu đến id của bảng orders
             $table->string('address'); // Địa chỉ giao hàng
             $table->timestamps();
         });

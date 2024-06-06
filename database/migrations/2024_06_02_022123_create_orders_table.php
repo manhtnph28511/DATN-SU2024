@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Khóa ngoại tham chiếu đến id của bảng users
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Thiết lập khóa ngoại và tính chất cascade
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Product::class)->constrained(); // Khóa ngoại tham chiếu đến id của bảng users
             $table->timestamps();
         });
     }

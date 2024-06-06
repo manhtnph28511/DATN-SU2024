@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -12,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        
+    $data = Category::query()->latest('id')->paginate(); // Lấy danh sách các categories
+    return view('Admin.categories.index', compact('data'));
     }
 
     /**
@@ -20,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin/categories.create');
     }
 
     /**
@@ -28,23 +32,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::query()->create($request->all());
+
+        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $category = Category::query()->findOrFail($id);
+        return view('Admin/categories.edit',compact('category'));
     }
 
     /**
@@ -52,14 +48,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         // Lưu thông báo vào session
+        Session::flash('success', 'Category updated successfully');
+        $category = Category::query()->findOrFail($id);
+        $category->update($request->all());
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy($id)
+{
+    Category::destroy($id);
+    return redirect()->route('categories.index');
+}
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cart_id'); // Tạo trường cart_id kiểu số nguyên không dấu
-            $table->unsignedBigInteger('product_id'); // Tạo trường product_id kiểu số nguyên không dấu
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade'); // Tạo khóa ngoại cart_id tham chiếu đến id trong bảng carts và thiết lập tính chất cascade để tự động xóa khi bản ghi liên quan bị xóa
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade'); // Tạo khóa ngoại product_id tham chiếu đến id trong bảng products và thiết lập tính chất cascade để tự động xóa khi bản ghi liên quan bị xóa
+
+
+            $table->foreignIdFor(Cart::class)->constrained()->onDelete('cascade'); // Tạo khóa ngoại cart_id tham chiếu đến id trong bảng carts 
+            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->timestamps();
         });

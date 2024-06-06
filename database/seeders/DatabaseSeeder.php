@@ -30,14 +30,21 @@ class DatabaseSeeder extends Seeder
         }
 
         // Tạo dữ liệu mẫu cho bảng Product
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('products')->insert([
                 'category_id'=>rand(1,10),
-                'name' => fake()->word,
+                'ProductName' => fake()->word,
+            ]);
+        }
+        
+        for ($i = 0; $i <10; $i++) {
+            DB::table('variants')->insert([
+                'Product_id' => rand(1, 10),
+                'Size' => fake()->randomElement(['S', 'M', 'L', 'XL']),
+                'Color' => fake()->safeColorName,
+                'Price' => fake()->randomFloat(2, 50, 300), // Giá ngẫu nhiên từ 50 đến 300
+                'StockQuantity' => fake()->numberBetween(10, 100), // Số lượng tồn kho ngẫu nhiên từ 10 đến 100
                 'description' => fake()->sentence,
-                'size'=>fake()->randomNumber(),
-                'color'=>fake()->hexColor(),
-                'price' => fake()->randomFloat(2, 0, 100),
             ]);
         }
 
@@ -52,14 +59,15 @@ class DatabaseSeeder extends Seeder
         // Tạo dữ liệu mẫu cho bảng Cart
         for ($i = 0; $i < 10; $i++) {
             DB::table('carts')->insert([
-                'user_id' => fake()->numberBetween(1, 10),
+                'user_id' => rand(1,10),
             ]);
         }
 
         // Tạo dữ liệu mẫu cho bảng Order
         for ($i = 0; $i < 10; $i++) {
             DB::table('orders')->insert([
-                'user_id' => fake()->numberBetween(1, 10),
+                'user_id' => rand(1,10),
+                'product_id'=>rand(1,10),
             ]);
         }
 
@@ -74,15 +82,15 @@ class DatabaseSeeder extends Seeder
         // Tạo dữ liệu mẫu cho bảng Wishlist
         for ($i = 0; $i < 10; $i++) {
             DB::table('wishlists')->insert([
-                'user_id' => fake()->numberBetween(1, 10),
-                'product_id' => fake()->numberBetween(1, 20),
+                'user_id' => rand(1,10),
+                'product_id' => rand(1,10),
             ]);
         }
 
         // Tạo dữ liệu mẫu cho bảng Address
         for ($i = 0; $i < 10; $i++) {
             DB::table('addresses')->insert([
-                'user_id' => fake()->numberBetween(1, 10),
+                'user_id' => rand(1,10),
                 'address_line' => fake()->address,
                 'city' => fake()->city,
                 'state' => fake()->state,
@@ -94,7 +102,7 @@ class DatabaseSeeder extends Seeder
         // Tạo dữ liệu mẫu cho bảng Payment
         for ($i = 0; $i < 10; $i++) {
             DB::table('payments')->insert([
-                'order_id' => fake()->numberBetween(1, 10),
+                'order_id' => rand(1,10),
                 'amount' => fake()->randomFloat(2, 0, 100),
             ]);
         }
@@ -102,16 +110,16 @@ class DatabaseSeeder extends Seeder
         // Tạo dữ liệu mẫu cho bảng Shipping
         for ($i = 0; $i < 10; $i++) {
             DB::table('shippings')->insert([
-                'order_id' => fake()->numberBetween(1, 10),
+                'order_id' => rand(1,10),
                 'address' => fake()->address,
             ]);
         }
 
         // Tạo dữ liệu mẫu cho bảng Review
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('reviews')->insert([
-                'user_id' => fake()->numberBetween(1, 10),
-                'product_id' => fake()->numberBetween(1, 20),
+                'user_id' => rand(1,10),
+                'product_id' => rand(1,10),
                 'content' => fake()->paragraph,
                 'rating' => fake()->numberBetween(1, 5),
             ]);
