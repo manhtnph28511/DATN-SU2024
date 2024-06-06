@@ -17,6 +17,7 @@ class CategoryController extends Controller
         
     $data = Category::query()->latest('id')->paginate(); // Lấy danh sách các categories
     return view('Admin.categories.index', compact('data'));
+
     }
 
     /**
